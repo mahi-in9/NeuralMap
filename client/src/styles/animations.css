@@ -1,0 +1,112 @@
+@keyframes shimmer {
+    from { background-position: -200% center;}
+    to { background-position: 200% center;}
+}
+
+@keyframes pulse-glow {
+    0%, 100% {
+        box-shadow: 0 0 8px var(--clr-primary-glow);
+    }
+    50% {
+        box-shadow: 
+            0 0 25px var(--clr-primary-glow),
+            0 0 50px var(--clr-primary-glow);
+    }
+}
+
+@keyframes fade-slide-up {
+    from{
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes spin {
+    to{ transform: rotate(360deg);}
+}
+
+.skelton {
+    background: linear-gradient(90deg, 
+    var(--clr-surface) 25%,
+    var(--clr-surface-2) 50%,
+    var(--clr-surface) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s ease infinite;
+}
+
+.skelton-graph {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-6);
+    width: 100%;
+    padding: var(--space-8);
+}
+
+.skelton-nodes-row {
+    display: flex;
+    gap: var(--space-8);
+    align-items: center;
+}
+
+.skelton-node {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.skelton-edge {
+    width: 140px;
+    height: 3px;
+    border-radius: var(--radius-full);
+}
+
+.skelton-label {
+    width: 60px;
+    height: 12px;
+    border-radius: var(--radius-full);
+}
+
+.skelton-label {
+    width: 60px;
+    height: 12px;
+    border-radius: var(--radius-full);
+    margin-top: var(--space-2);
+}
+
+.skelton-node::nth-child(2) {animation-delay: 0.15%;}
+.skelton-node::nth-child(3) {animation-delay: 0.30%;}
+.skelton-edge::nth-child(2) {animation-delay: 0.20%;}
+
+
+.sidebar {
+    animation: fade-slide-up 0.5s ease-out both;
+}
+
+.topbar {
+    animation: fade-slide-up 0.5s ease-out 0.1s both;
+}
+
+.right-panel {
+    animation: fade-slide-up 0.5s ease-out 0.2s both;
+}
+
+.node--active {
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+
+.spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--clr-surface-2);
+    border-top-color: var(--clr-primary);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+}
+
