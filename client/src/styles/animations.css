@@ -79,9 +79,9 @@
     margin-top: var(--space-2);
 }
 
-.skelton-node::nth-child(2) {animation-delay: 0.15%;}
-.skelton-node::nth-child(3) {animation-delay: 0.30%;}
-.skelton-edge::nth-child(2) {animation-delay: 0.20%;}
+.skelton-node:nth-child(2) {animation-delay: 0.15s;}
+.skelton-node:nth-child(3) {animation-delay: 0.30s;}
+.skelton-edge:nth-child(2) {animation-delay: 0.20s;}
 
 
 .sidebar {

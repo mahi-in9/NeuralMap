@@ -1,151 +1,155 @@
-.app-shell{
-    display: grid;
+/* src/components/AppShell.css */
 
-    grid-template-columns: 260px 1fr 320px;
-    grid-template-rows: 64px 1fr;
-
-    grid-template-areas: 
-        "sidebar topbar topbar"
-        "sidebar canvas right-panel";
-    
-    height: 100vh;
-    width: 100vw;
-    background-color: var(--clr-bg);
-    color: var(--clr-text);
-    overflow: hidden;
+.app-shell {
+  display: grid;
+  grid-template-columns: 260px 1fr 320px;
+  grid-template-rows: 64px 1fr;
+  grid-template-areas:
+    "sidebar  topbar      topbar"
+    "sidebar  canvas      right-panel";
+  height: 100vh;
+  width: 100vw;
+  background-color: var(--clr-bg);
+  color: var(--clr-text);
+  overflow: hidden;
 }
 
+/* ── SIDEBAR ── */
 .sidebar {
-    grid-area: sidebar;
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
-    padding: var(--space-6);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-6);
+  grid-area: sidebar;
+  /* Deep glassmorphism for sidebar */
+  background: hsl(220 20% 8% / 0.95);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border-right: 1px solid var(--clr-border);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  /* Subtle top glow — like light coming from above */
+  box-shadow: inset 0 1px 0 hsl(220 20% 100% / 0.05);
 }
 
 .logo {
-    font-size: var(--text-xl);
-    font-weight: 700;
-    color: var(--clr-text);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--clr-border);
 }
 
 .nav-menu {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
 }
 
 .nav-btn {
-    text-align: left;
-    padding: var(--space-3) var(--space-4) ;
-    border-radius: var(--radius-md);
-    color: var(--clr-text-muted);
-    font-size: var(--text-sm);
-    transition: all var(--duration-fast);
+  text-align: left;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  color: var(--clr-text-muted);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  transition: all var(--duration-fast);
 }
 
 .nav-btn:hover {
-    background: rgba(255, 255, 255, 0.05);
-    color: var(--clr-text);
+  background: hsl(220 20% 100% / 0.05);
+  color: var(--clr-text);
 }
 
-.nav-btn.active{
-    background: rgba(130, 80, 255, 0.15);
-    color: var(--clr-primary);
+.nav-btn.active {
+  background: var(--clr-primary-soft);
+  color: var(--clr-primary);
 }
 
-.topbar{
-    grid-area: topbar;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    display: flex;
-    align-items: center;
-    gap: var(--space-4);
-    padding: 0 var(--space-6);
+/* ── TOPBAR ── */
+.topbar {
+  grid-area: topbar;
+  background: hsl(220 20% 8% / 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--clr-border);
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: 0 var(--space-6);
 }
 
-.search-input {
-    flex: 1;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: var(--radius-full);
-    color: var(--clr-text);
-    padding: var(--space-2) var(--space-4);
-    outline: none;
-    font-size: var(--text-sm);
-    transition: border-color var(--duration-fast);
+/* Topbar uses the reusable .input class from components.css */
+/* Override just the border-radius to be pill-shaped */
+.topbar .input {
+  border-radius: var(--radius-full);
 }
 
-.search-input:focus {
-    border-color: var(--clr-primary);
+/* ── GENERATE BUTTON (topbar version) ── */
+.generate-btn {
+  background: var(--clr-primary);
+  color: white;
+  padding: var(--space-2) var(--space-6);
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  transition: all var(--duration-normal) var(--ease-smooth);
+  white-space: nowrap;
+  box-shadow: 0 0 16px var(--clr-primary-glow);
 }
 
-.search-input::placeholder{
-    color: var(--clr-text-muted);
+.generate-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 30px var(--clr-primary-glow);
 }
 
-.generate-btn{
-    background: var(--clr-primary);
-    color: white;
-    padding: var(--space-2) var(--space-6); 
-    border-radius: var(--radius-full);
-    font-size: var(--text-sm);
-    font-weight: 600;
-    transition: all var(--duration-normal) var(--ease-smooth);
-    white-space: nowrap;
+.user-profile {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--clr-primary), var(--clr-accent));
+  flex-shrink: 0;
 }
 
-.generate-btn:hover{
-    transform: translate(-1px);
-    box-shadow: var(--shadow-glow);
-}
-
-.user-profile{
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: var(--clr-primary);
-    flex-shrink: 0;
-}
-
+/* ── CANVAS AREA ── */
 .canvas-area {
-    grid-area: canvas;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
+  grid-area: canvas;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  /* Subtle radial glow in the center — adds depth */
+  background: radial-gradient(
+    ellipse 60% 50% at 50% 50%,
+    hsl(270 80% 65% / 0.04) 0%,
+    transparent 70%
+  );
 }
 
-.placeholder-text{
-    text-align: center;
-    color: var(--clr-text-muted);
+.placeholder-text {
+  text-align: center;
+  color: var(--clr-text-muted);
 }
 
-.right-panel{
-    grid-area: right-panel;
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
-    padding: var(--space-6);
+/* ── RIGHT PANEL ── */
+/* Note: only one .right-panel block — removed the duplicate */
+.right-panel {
+  grid-area: right-panel;
+  background: hsl(220 20% 8% / 0.95);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border-left: 1px solid var(--clr-border);
+  padding: var(--space-6);
+  box-shadow: inset 0 1px 0 hsl(220 20% 100% / 0.05);
 }
 
-.right-panel{
-    grid-area: right-panel;
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
-    padding: var(--space-6);
+.right-panel h3 {
+  font-size: var(--text-base);
+  font-weight: 600;
+  margin-bottom: var(--space-4);
+  color: var(--clr-text);
 }
 
-.right-panel h3{
-    font-size: var(--text-lg);
-    margin-bottom: var(--space-4);
+.chat-placeholder {
+  color: var(--clr-text-muted);
+  font-size: var(--text-sm);
+  line-height: 1.6;
 }
-
-.chat-placeholder{
-    color: var(--clr-text-muted);
-    font-size: var(--text-sm);
-}
-
-.glass-panel{
-    background: rgba(255, 255, 255, 0.02);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-}
-
