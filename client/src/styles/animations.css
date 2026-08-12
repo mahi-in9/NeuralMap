@@ -110,3 +110,56 @@
     animation: spin 0.7s linear infinite;
 }
 
+/* ============================================
+   VIEW TRANSITIONS API
+   These rules control how the browser animates
+   between the landing page and graph editor
+   ============================================ */
+
+/* The whole page slides left when going TO the graph editor */
+::view-transition-old(root) {
+  animation: vt-slide-out 350ms var(--ease-smooth) both;
+}
+
+/* The graph editor slides in from the right */
+::view-transition-new(root) {
+  animation: vt-slide-in 350ms var(--ease-smooth) both;
+}
+
+@keyframes vt-slide-out {
+  to {
+    opacity: 0;
+    transform: translateX(-60px) scale(0.98);
+  }
+}
+
+@keyframes vt-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(60px) scale(0.98);
+  }
+}
+
+/* The graph title element morphs independently — 
+   it gets its own animation separate from the page slide */
+::view-transition-old(graph-title),
+::view-transition-new(graph-title) {
+  /* Let the browser handle the position morph automatically */
+  animation-duration: 400ms;
+}
+
+/* The URL input card fades out as a named element */
+::view-transition-old(input-card) {
+  animation: vt-card-out 300ms var(--ease-smooth) both;
+}
+
+::view-transition-new(input-card) {
+  animation: none; /* card doesn't exist in editor, so new is nothing */
+}
+
+@keyframes vt-card-out {
+  to {
+    opacity: 0;
+    transform: scale(0.95) translateY(-10px);
+  }
+}
