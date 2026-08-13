@@ -56,4 +56,17 @@
   --duration-fast:   150ms;
   --duration-normal: 300ms;
   --duration-slow:   600ms;
+
+
+  /* ── Fluid typography with clamp() ──
+   Syntax: clamp(minimum, preferred, maximum)
+   The preferred value (vw-based) scales with viewport.
+   min/max prevent it from getting too small or too large.
+   ────────────────────────────────────────────── */
+--text-fluid-sm:   clamp(0.8rem,  1.5vw, 0.95rem);
+--text-fluid-base: clamp(0.9rem,  2vw,   1rem);
+--text-fluid-lg:   clamp(1rem,    2.5vw, 1.2rem);
+--text-fluid-xl:   clamp(1.2rem,  3vw,   1.5rem);
+--text-fluid-2xl:  clamp(1.4rem,  4vw,   2rem);
+--text-fluid-hero: clamp(1.8rem,  5vw,   3rem);
 }
