@@ -1,11 +1,48 @@
 // src/components/GraphEditor.jsx
-// This is the "page 2" — where the graph lives after AI generates it
+import { useState } from 'react'
+import NodeDetail from './NodeDetail'
+import './NodeDetail.css'
+
+// Fake node data — in Week 4, this comes from LangChain AI
+const FAKE_NODES = [
+  {
+    id: 'n1', label: 'React Hooks',
+    type: 'Concept', description: 'Functions that let you use state and other React features in functional components.',
+    connections: 4, relevance: 'High', source: 'Wikipedia',
+    related: ['useState', 'useEffect', 'Custom Hooks'],
+    style: { top: '25%', left: '30%' }
+  },
+  {
+    id: 'n2', label: 'useState',
+    type: 'API', description: 'Returns a stateful value and a function to update it.',
+    connections: 3, relevance: 'High', source: 'React Docs',
+    related: ['React Hooks', 'useReducer'],
+    style: { top: '25%', right: '25%' }
+  },
+  {
+    id: 'n3', label: 'useEffect',
+    type: 'API', description: 'Accepts a function that contains imperative, possibly effectful code.',
+    connections: 3, relevance: 'High', source: 'React Docs',
+    related: ['React Hooks', 'Lifecycle'],
+    style: { bottom: '25%', left: '25%' }
+  },
+  {
+    id: 'n4', label: 'Custom Hooks',
+    type: 'Pattern', description: 'A JavaScript function whose name starts with "use" that calls other Hooks.',
+    connections: 2, relevance: 'Medium', source: 'React Docs',
+    related: ['React Hooks', 'Reusability'],
+    style: { bottom: '25%', right: '25%' }
+  },
+]
 
 function GraphEditor({ topic, onBack }) {
+  // Which node is currently selected — null means none
+  const [selectedNode, setSelectedNode] = useState(null)
+
   return (
     <div className="graph-editor-shell">
 
-      {/* ── SIDEBAR ── same as AppShell */}
+      {/* ── SIDEBAR ── */}
       <aside className="sidebar">
         <div className="logo">
           🧠 <span className="gradient-text">NeuralMap</span>
@@ -23,7 +60,6 @@ function GraphEditor({ topic, onBack }) {
 
       {/* ── TOPBAR ── */}
       <header className="topbar">
-        {/* This title has a view-transition-name — it morphs from the card */}
         <h2 className="graph-title" style={{ fontSize: 'var(--text-lg)', fontWeight: 600 }}>
           {topic}
         </h2>
@@ -35,28 +71,36 @@ function GraphEditor({ topic, onBack }) {
 
       {/* ── CANVAS AREA ── */}
       <main className="canvas-area">
-        {/* Week 3 will put the real Canvas here */}
-        {/* For now, fake some nodes to show the layout */}
         <div className="fake-graph">
+          {/* Central topic node */}
           <div className="fake-node fake-node--center">
             <span className="gradient-text">{topic}</span>
           </div>
-          <div className="fake-node" style={{ top: '25%', left: '30%' }}>Concept A</div>
-          <div className="fake-node" style={{ top: '25%', right: '30%' }}>Concept B</div>
-          <div className="fake-node" style={{ bottom: '25%', left: '30%' }}>Concept C</div>
-          <div className="fake-node" style={{ bottom: '25%', right: '30%' }}>Concept D</div>
+
+          {/* Clickable concept nodes */}
+          {FAKE_NODES.map((node) => (
+            <div
+              key={node.id}
+              className={`fake-node ${selectedNode?.id === node.id ? 'fake-node--selected' : ''}`}
+              style={node.style}
+              onClick={() => setSelectedNode(node)}
+            >
+              {node.label}
+            </div>
+          ))}
+
           <p style={{ position: 'absolute', bottom: '16px', color: 'var(--clr-text-muted)', fontSize: 'var(--text-xs)' }}>
-            Canvas graph engine coming in Week 3 →
+            Canvas graph engine coming in Week 3 → Click a node to see details
           </p>
         </div>
       </main>
 
-      {/* ── RIGHT PANEL ── */}
+      {/* ── RIGHT PANEL ── uses NodeDetail with container queries ── */}
       <aside className="right-panel">
-        <h3>AI Assistant</h3>
-        <p className="chat-placeholder">
-          Click any node to ask questions about <strong>{topic}</strong>.
-        </p>
+        <NodeDetail
+          node={selectedNode}
+          onClose={() => setSelectedNode(null)}
+        />
       </aside>
 
     </div>
@@ -64,4 +108,3 @@ function GraphEditor({ topic, onBack }) {
 }
 
 export default GraphEditor
-
