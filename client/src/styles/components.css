@@ -220,7 +220,7 @@
 }
 
 .url-input-card__title {
-  font-size: var(--text-2xl);
+  font-size: var(--text-fluid-2xl);
   font-weight: 700;
   margin-bottom: var(--space-2);
   line-height: 1.3;
